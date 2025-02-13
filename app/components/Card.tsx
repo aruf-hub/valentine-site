@@ -1,9 +1,16 @@
 // /components/Card.tsx
 import { useState } from "react";
+import Image from "next/image";
 
-const Card = ({ id, img, onClick }: any) => {
+// Define props type
+interface CardProps {
+  id: number;
+  img: string;
+  onClick: (id: number) => void;
+}
+
+const Card: React.FC<CardProps> = ({ id, img, onClick }) => {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [isShaking, setIsShaking] = useState(false);
 
   const handleClick = () => {
     if (isFlipped) return;
@@ -12,15 +19,12 @@ const Card = ({ id, img, onClick }: any) => {
   };
 
   return (
-    <div
-      className={`card ${isFlipped ? "flip" : ""} ${isShaking ? "shake" : ""}`}
-      onClick={handleClick}
-    >
+    <div className={`card ${isFlipped ? "flip" : ""}`} onClick={handleClick}>
       <div className="view front-view">
-        <img src="/images/img-1.png" alt="Front" />
+        <Image src="/images/img-1.png" alt="Front" width={100} height={100} />
       </div>
       <div className="view back-view">
-        <img src={img} alt="Back" />
+        <Image src={img} alt="Back" width={100} height={100} />
       </div>
     </div>
   );

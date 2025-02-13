@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <title>Valentine's Day Proposal</title>
+        <title>Valentines Day Proposal</title>
         <meta name="description" content="A special Valentine's Day proposal" />
       </head>
       <body>

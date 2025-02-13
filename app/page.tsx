@@ -86,7 +86,7 @@ export default function HomePage() {
         setRetry(true);
       }
     } else if (currentText === 6) {
-      const validAnswers = ["taunt", "shout", "fight","abuse","yell","tease","irritate"];
+      const validAnswers = ["taunts", "shout", "fight","abuse","yell","tease","irritate","taunt"];
       if (validAnswers.includes(inputText.toLowerCase().trim())) {
         setCurrentText(7);
         setInputText('');

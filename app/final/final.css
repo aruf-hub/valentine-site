@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+.final-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+  
+.final-text {
+    color: #7E0B48; /* Ensure the text color is the same as in globals.css */
+    font-size: 3rem; /* Updated to match the h1 font size in globals.css */
+    line-height: 1.5; /* Reduced line spacing */
+    margin: 0.3rem 0; /* Smaller margin between lines */
+    opacity: 1;
+    animation: fadeIn 1s forwards;
+}
+
+.no-animation {
+    animation: none;
+    opacity: 1;
+    visibility: visible;
+}
+  
+.final-button:hover {
+    background-color: #d35591;
+}
+  
+.invisible-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+  
+.dinner-date-text {
+    font-family: 'Shadows Into Light';
+    font-size: 50px;
+    color: #7e0b48;
+    text-align: center;
+    margin-top: 20px;
+}
+  
+.bottom-right-image {
+    position: fixed;
+    bottom: -10px;
+    right: 20px;
+    width: 300px; /* Adjust size as needed */
+    height: auto;
+    opacity: 0;
+    animation: fadeIn 1s 0.5s forwards; /* Slight delay for smooth entry */
+}
+  
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,101 +1,218 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function HomePage() {
+  const [currentText, setCurrentText] = useState(0);
+  const [inputText, setInputText] = useState('');
+  const [displayedText, setDisplayedText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [isInputVisible, setIsInputVisible] = useState(false);
+  const [isButtonsVisible, setIsButtonsVisible] = useState(false);
+  const [isStartButtonVisible, setIsStartButtonVisible] = useState(false);
+  const [retry, setRetry] = useState(false);
+
+  const router = useRouter();
+
+  const texts = [
+    "Oh hiii...",
+    "You must be someone really special for Aruf to be here...",
+    "Who are you thou...?",
+    "Nooo.. you're my Caramel-Bun >.<",
+    "Well.. do you know me..?",
+    "What’s the invisible thread that makes me feel closest to you?",
+    "What’s the one thing about you that teases my patience… just a little?",
+    "hehe.. so you do know me~",
+    "Wanna take a trip down the sugar & spice street?",
+    "Find the pairs that belong together… just like you and me~"
+  ];
+
+  useEffect(() => {
+    if (currentText < texts.length) {
+      let index = -1;
+      setDisplayedText('');
+      setIsTyping(true);
+      setIsInputVisible(false);
+
+      const typeText = () => {
+        if (index < texts[currentText].length - 1) {
+          setDisplayedText((prev) => prev + texts[currentText][index]);
+          index++;
+        } else {
+          clearInterval(typingInterval);
+          setIsTyping(false);
+
+          setTimeout(() => {
+            if (currentText === 2 || currentText === 5 || currentText === 6) {
+              setIsInputVisible(true);
+            }
+            if (currentText === 8) setIsButtonsVisible(true);
+            if (currentText === 9) setIsStartButtonVisible(true);
+          }, 200);
+        }
+      };
+
+      const typingInterval = setInterval(typeText, 100);
+
+      return () => clearInterval(typingInterval);
+    }
+  }, [currentText]);
+
+  const handleTextClick = () => {
+    if (isTyping) return;
+    if (currentText === 2 || currentText === 5 || currentText === 6) return;
+    if (currentText === 8 && !isButtonsVisible) return;
+    if (currentText === 9 && !isStartButtonVisible) return;
+    setCurrentText((prev) => prev + 1);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(event.target.value);
+  };
+  
+  const handleSubmit = () => {
+    if (currentText === 2) {
+      setCurrentText(3);
+      setIsInputVisible(false);
+      setInputText('');
+    } else if (currentText === 5) {
+      const validAnswers = ["smell", "scent", "aroma", "stink", "fragrance", "odor","sweat"];
+      if (validAnswers.includes(inputText.toLowerCase().trim())) {
+        setCurrentText(6);
+        setInputText('');
+        setRetry(false);
+      } else {
+        setRetry(true);
+      }
+    } else if (currentText === 6) {
+      const validAnswers = ["pair", "hair", "stair"];
+      if (validAnswers.includes(inputText.toLowerCase().trim())) {
+        setCurrentText(7);
+        setInputText('');
+        setRetry(false);
+      } else {
+        setRetry(true);
+      }
+    }
+  };
+  
+  const handleYesClick = () => {
+    setCurrentText(8);
+  };
+
+  const handleNoClick = () => {
+    setCurrentText(8);
+  };
+  
+  const handleStartClick = () => {
+    router.push('/game');
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div
+      onClick={handleTextClick}
+      style={{
+        textAlign: 'center',
+        padding: '50px',
+        backgroundColor: '#F1C6D6',
+        cursor: 'pointer',
+      }}
+    >
+      <h1 style={{ color: '#7E0B48', fontSize: '3rem' }}>{displayedText}</h1>
+    
+    {isInputVisible && (currentText === 2 || currentText === 5 || currentText === 6) && (
+        <div>
+          <input
+            type="text"
+            value={inputText}
+            onChange={handleInputChange}
+            placeholder="Your answer"
+            style={{
+              padding: '10px',
+              marginTop: '20px',
+              fontSize: '1rem',
+              borderRadius: '5px',
+            }}
+          />
+          <button
+            onClick={handleSubmit}
+            style={{
+              backgroundColor: '#7E0B48',
+              color: '#fff',
+              fontSize: '1rem',
+              padding: '10px 20px',
+              marginLeft: '10px',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Submit
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      )}
+
+      {retry && (
+        <h2 style={{ color: 'red', fontSize: '1.5rem', marginTop: '10px' }}>
+          Try again..
+        </h2>
+      )}
+      {isButtonsVisible && currentText === 8 && (
+        <div>
+          <button
+            onClick={handleYesClick}
+            style={{
+              backgroundColor: '#7E0B48',
+              color: '#fff',
+              fontSize: '1rem',
+              padding: '15px 30px',
+              margin: '20px',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            Yes
+          </button>
+          <button
+            onClick={handleNoClick}
+            style={{
+              backgroundColor: '#9B2C59',
+              color: '#fff',
+              fontSize: '1rem',
+              padding: '15px 30px',
+              margin: '20px',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            No
+          </button>
+        </div>
+      )}
+
+      {isStartButtonVisible && currentText === 9 && (
+        <div>
+          <button
+            onClick={handleStartClick}
+            style={{
+              backgroundColor: '#7E0B48',
+              color: '#fff',
+              fontSize: '1.5rem',
+              padding: '15px 30px',
+              marginTop: '20px',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            Start Game
+          </button>
+        </div>
+      )}
+    
+    </div> 
   );
 }

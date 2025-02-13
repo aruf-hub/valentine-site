@@ -21,10 +21,10 @@ const Card: React.FC<CardProps> = ({ id, img, onClick }) => {
   return (
     <div className={`card ${isFlipped ? "flip" : ""}`} onClick={handleClick}>
       <div className="view front-view">
-        <Image src="/images/img-1.png" alt="Front" width={100} height={100} priority/>
+        <Image src="/images/img-1.webp" alt="Front" width={100} height={100} priority />
       </div>
       <div className="view back-view">
-        <Image src={img} alt="Back" width={100} height={100} priority/>
+        <Image src={img.replace(".png", ".webp")} alt="Back" width={100} height={100} priority />
       </div>
     </div>
   );

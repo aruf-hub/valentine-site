@@ -86,7 +86,7 @@ export default function HomePage() {
         setRetry(true);
       }
     } else if (currentText === 6) {
-      const validAnswers = ["pair", "hair", "stair"];
+      const validAnswers = ["taunt", "shout", "fight","abuse","yell","tease","irritate"];
       if (validAnswers.includes(inputText.toLowerCase().trim())) {
         setCurrentText(7);
         setInputText('');
@@ -155,7 +155,7 @@ export default function HomePage() {
 
       {retry && (
         <h2 style={{ color: 'red', fontSize: '1.5rem', marginTop: '10px' }}>
-          Try again..
+          Try again..(it's one word)
         </h2>
       )}
       {isButtonsVisible && currentText === 8 && (

@@ -140,7 +140,7 @@ export default function FinalPage() {
       {showFinalText && (
         <>
           <h1 className="dinner-date-text">{finalText}</h1>
-          <img src="/images/dinner.png" alt="Cute Image" className="bottom-right-image" />
+          <img src="/images/dinner.webp" alt="Cute Image" className="bottom-right-image" />
         </>
       )}
     </div>

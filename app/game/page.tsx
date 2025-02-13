@@ -15,14 +15,14 @@ export default function GamePage() {
 
     // **Pairs for Matching**
     const cardPairs: Record<string, string> = {
-      'img-1.png': 'img-1.1.png',
-      'img-2.png': 'img-2.1.png',
-      'img-3.png': 'img-3.1.png',
-      'img-4.png': 'img-4.1.png',
-      'img-5.png': 'img-5.1.png',
-      'img-6.png': 'img-6.1.png',
-      'img-7.png': 'img-7.1.png',
-      'img-8.png': 'img-8.1.png',
+      'img-1.webp': 'img-1.1.webp',
+      'img-2.webp': 'img-2.1.webp',
+      'img-3.webp': 'img-3.1.webp',
+      'img-4.webp': 'img-4.1.webp',
+      'img-5.webp': 'img-5.1.webp',
+      'img-6.webp': 'img-6.1.webp',
+      'img-7.webp': 'img-7.1.webp',
+      'img-8.webp': 'img-8.1.webp',
     };
 
     function flipCard(event: Event) {
@@ -97,10 +97,10 @@ export default function GamePage() {
 
     function showFinalImages() {
       const finalImages = [
-        '001.png', '002.png', '003.png', '004.png',
-        '005.png', '006.png', '007.png', '008.png',
-        '009.png', '010.png', '011.png', '012.png',
-        '013.png', '014.png', '015.png', '016.png'
+        '001.webp', '002.webp', '003.webp', '004.webp',
+        '005.webp', '006.webp', '007.webp', '008.webp',
+        '009.webp', '010.webp', '011.webp', '012.webp',
+        '013.webp', '014.webp', '015.webp', '016.webp'
       ];
 
       cards.forEach((card, i) => {
@@ -125,10 +125,10 @@ export default function GamePage() {
         {Array.from({ length: 16 }).map((_, index) => (
           <div key={index} className="card">
             <div className="view front-view">
-              <img src="/images/img-9.png" alt="front" />
+              <img src="/images/img-9.webp" alt="front" />
             </div>
             <div className="view back-view">
-              <img src="/images/img-1.png" alt="back" />
+              <img src="/images/img-1.webp" alt="back" />
             </div>
           </div>
         ))}

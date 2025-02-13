@@ -113,7 +113,7 @@ export default function GamePage() {
 
       setTimeout(() => {
         router.push('/final');
-      }, 8000);
+      }, 5000);
     }
 
     shuffleCards();
